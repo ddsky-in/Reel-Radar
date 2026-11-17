@@ -1,0 +1,21 @@
+-- TEMPLATE ONLY. DO NOT APPLY without explicit owner approval and verified five-profile live run.
+-- Extension installation, Vault secret creation and Cron activation are operator steps.
+-- Intentionally all statements commented; nothing is scheduled by migrations.
+-- create extension if not exists pg_cron;
+-- create extension if not exists pg_net;
+-- Create Vault secrets reelradar_edge_url and reelradar_internal_secret outside source control.
+-- select cron.schedule('reelradar-daily','30 23 * * *', $$
+--   select net.http_post(
+--     url := (select decrypted_secret from vault.decrypted_secrets where name='reelradar_edge_url') || '/functions/v1/refresh-dispatch',
+--     headers := jsonb_build_object('Content-Type','application/json','x-internal-secret',
+--       (select decrypted_secret from vault.decrypted_secrets where name='reelradar_internal_secret')),
+--     body := '{"kind":"daily"}'::jsonb
+--   );
+-- $$);
+-- 05:00 IST on calendar day D is 23:30 UTC on day D-1.
+-- A Sunday 05:00 IST weekly run uses UTC Saturday: 30 23 * * 6.
+-- Profile enrichment must be separately validated before scheduling kind=profile.
+-- 11:00 IST retry template: 30 5 * * * (kind=retry); once/creator/IST-day is enforced in DB.
+-- Reconciliation template: */10 * * * * calling /functions/v1/reconcile-jobs with body='{}'.
+-- Never enable any of the above automatically. To pause: set app_settings.paused=true;
+-- unschedule all named jobs explicitly and keep reconciliation only with owner approval.

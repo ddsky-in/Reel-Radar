@@ -1,0 +1,41 @@
+project_id = "reelradar"
+[api]
+enabled = true
+port = 54321
+schemas = ["public"]
+extra_search_path = ["public", "extensions"]
+max_rows = 1000
+[db]
+port = 54322
+major_version = 15
+[db.seed]
+enabled = false
+[auth]
+enabled = true
+site_url = "http://localhost:3000"
+additional_redirect_urls = ["http://localhost:3000/auth/callback"]
+enable_signup = false
+[functions.refresh-dispatch]
+verify_jwt = false
+[functions.apify-webhook]
+verify_jwt = false
+[functions.reconcile-jobs]
+verify_jwt = false
+[functions.competitor-run-audit]
+verify_jwt = false
+entrypoint = "./functions/competitor-run-audit/retired.ts"
+[functions.uncertain-job-audit]
+verify_jwt = false
+entrypoint = "./functions/uncertain-job-audit/retired.ts"
+[functions.collection-control]
+verify_jwt = false
+entrypoint = "./functions/collection-control/retired.ts"
+# All handlers authenticate independently before database or provider calls.
+[functions.transcript-dispatch]
+verify_jwt = false
+[functions.elevenlabs-webhook]
+verify_jwt = false
+[functions.transcript-reconcile]
+verify_jwt = false
+[functions.transcript-provider-check]
+verify_jwt = false

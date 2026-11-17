@@ -1,0 +1,122 @@
+/* Billing and protected-hold controls share Settings and Jobs, without another screen. */
+.collection-spending, .collection-holds { min-width: 0; padding: 1.25rem; }
+.collection-summary-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr)); gap: 1rem; margin: 1rem 0; }
+.collection-summary-grid > div { min-width: 0; }
+.collection-summary-grid dt { color: var(--muted); font-size: .8125rem; }
+.collection-summary-grid dd { margin: .25rem 0 0; overflow-wrap: anywhere; font-size: .9375rem; }
+.collection-summary-grid dd small { display: block; color: var(--muted); margin-top: .25rem; }
+.collection-safety-note { padding: .875rem; border: 1px solid #916d35; border-radius: .5rem; background: #362c19; color: #f1d091; font-size: .875rem; line-height: 1.6; margin: .75rem 0; }
+.collection-holds .panel-heading { padding: 0; margin-bottom: 1rem; display: flex; flex-wrap: wrap; gap: 1rem; }
+.collection-holds .panel-heading > div { min-width: 0; flex: 1 1 20rem; }
+.collection-holds .panel-heading p, .apify-billing-actions p { color: var(--muted); font-size: .875rem; margin-top: .375rem; }
+.collection-holds > .collection-spending { border: 1px solid var(--border); box-shadow: none; }
+.collection-hold-list { list-style: none; margin: 1rem 0; padding: 0; }
+.collection-hold-list > li { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem; padding: 1rem 0; border-top: 1px solid var(--border); }
+.collection-hold-list > li > div { min-width: 0; flex: 1 1 15rem; overflow-wrap: anywhere; }
+.collection-hold-paging, .apify-billing-actions { display: flex; flex-wrap: wrap; align-items: center; gap: .75rem; }
+.collection-hold-paging > span, .apify-billing-actions > div { flex: 1 1 15rem; min-width: 0; }
+.collection-recovery-dialog { width: 44rem; }
+.collection-recovery-dialog .helper-copy { color: var(--muted); }
+.collection-risk-ack { display: flex; gap: .75rem; align-items: flex-start; font-size: .875rem; line-height: 1.6; margin-top: 1rem; }
+.collection-risk-ack input { margin-top: .25rem; }
+.collection-audit { padding-top: .75rem; font-size: .875rem; }
+.collection-audit summary { min-height: 2.75rem; cursor: pointer; }
+.collection-audit li { padding: .5rem 0; overflow-wrap: anywhere; }
+.collection-audit p { white-space: pre-wrap; }
+.apify-billing-panel { display: grid; gap: 1rem; min-width: 0; }
+.apify-billing-actions, .billing-sync-result { padding: 1.25rem; border: 1px solid var(--border); border-radius: .75rem; background: var(--paper); }
+.billing-sync-result { font-size: .875rem; line-height: 1.7; }
+.billing-sync-result ul { padding-left: 1.25rem; }
+.collection-recovery-dialog .dialog-actions { position: sticky; bottom: 0; background: var(--canvas); padding-bottom: .375rem; }
+@media (max-width: 40rem) {
+  .collection-recovery-dialog { padding: 1rem; max-height: calc(100dvh - 2rem); }
+  .collection-recovery-dialog .dialog-actions > button { flex: 1 1 100%; }
+  .collection-spending, .collection-holds, .apify-billing-actions, .billing-sync-result { padding: 1rem; }
+  .collection-hold-list > li > button { width: 100%; }
+}
+
+/* Scoped job activity; Settings and on-demand transcription keep their own styles. */
+.jobs-page {
+  width: 100%;
+  max-width: 80rem;
+  margin-inline: auto;
+  display: grid;
+  gap: 1rem;
+  container: jobs / inline-size;
+  --jobs-muted: #9bacc4;
+  --jobs-line: #26364d;
+  --jobs-accent: #a6c4ff;
+}
+.jobs-page .jobs-heading { margin: 0; gap: .75rem 1rem; align-items: center; }
+.jobs-page .jobs-heading > div:first-child { flex-basis: 20rem; }
+.jobs-page .jobs-heading h1 { font-size: 1.75rem; letter-spacing: -.045em; }
+.jobs-page .jobs-heading p { margin-top: .25rem; color: var(--jobs-muted); font-size: .875rem; }
+.jobs-page .jobs-heading .button { min-height: 2.5rem; font-size: .8125rem; }
+.jobs-page .jobs-notice { padding: .625rem .875rem; border: 1px solid var(--jobs-line); border-radius: .5rem; color: #b8c7dc; background: #111e32; font-size: .75rem; }
+.jobs-page .jobs-activity { background: #0d1727; border-color: var(--jobs-line); border-radius: .75rem; }
+.jobs-page .jobs-activity-heading { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: .5rem 1rem; padding: 1rem 1.25rem .75rem; }
+.jobs-page .jobs-activity-heading h2 { font-size: 1rem; letter-spacing: -.02em; }
+.jobs-page .jobs-activity-heading p { margin-top: .25rem; color: var(--jobs-muted); font-size: .75rem; }
+.jobs-page .jobs-update-status { color: var(--jobs-muted); font-size: .6875rem; }
+.jobs-page .jobs-controls { display: flex; align-items: center; flex-wrap: wrap; gap: .75rem 1rem; padding: .25rem 1.25rem .75rem; }
+.jobs-page .jobs-filter-chips { display: flex; flex: 1 1 32rem; flex-wrap: wrap; gap: .375rem; }
+.jobs-page .jobs-filter-chip { display: inline-flex; align-items: center; justify-content: center; gap: .4375rem; min-height: 2.5rem; padding: .4375rem .6875rem; border: 1px solid #33465f; border-radius: .5rem; background: transparent; color: #b8c7dc; font-size: .75rem; line-height: 1.4; }
+.jobs-page .jobs-filter-chip:hover:not(:disabled) { border-color: #708caf; background: #15253c; }
+.jobs-page .jobs-filter-chip[aria-pressed="true"] { color: #c5dcff; background: #1a2d49; border-color: #749bd1; }
+.jobs-page .jobs-filter-count { min-width: 1.125rem; font-variant-numeric: tabular-nums; font-weight: 600; }
+.jobs-page .jobs-search { flex: 1 1 15rem; position: relative; display: block; max-width: 24rem; min-width: 0; }
+.jobs-page .jobs-search svg { position: absolute; left: .75rem; top: 50%; transform: translateY(-50%); color: var(--jobs-muted); pointer-events: none; }
+body .jobs-page .jobs-search input[type=search] { width: 100%; padding-left: 2.25rem; min-height: 2.5rem; font-size: .8125rem; border-radius: .5rem; }
+.jobs-page .jobs-result-count { display: flex; flex-wrap: wrap; gap: .5rem 1rem; color: var(--jobs-muted); font-size: .6875rem; padding: 0 1.25rem .75rem; }
+.jobs-page .jobs-inline-error { padding: .75rem 1.25rem; color: #f1b0be; font-size: .8125rem; background: #2c1c2a; }
+.jobs-page .jobs-inline-error .text-link { margin-left: .5rem; }
+.jobs-page .jobs-activity-list { list-style: none; padding: 0; margin: 0; }
+.jobs-page .jobs-activity-row { min-width: 0; padding: .875rem 1.25rem; border-top: 1px solid var(--jobs-line); }
+.jobs-page .jobs-row-main { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-start; gap: .5rem 1rem; }
+.jobs-page .jobs-row-identity { min-width: 0; flex: 1 1 12rem; }
+.jobs-page .jobs-row-identity h3 { font-size: .875rem; font-weight: 600; line-height: 1.5; }
+.jobs-page .jobs-row-identity p { color: var(--jobs-muted); font-size: .75rem; margin-top: .125rem; }
+.jobs-page .jobs-state { display: inline-flex; align-items: center; min-height: 1.625rem; border-radius: .375rem; padding: .25rem .5rem; font-size: .6875rem; line-height: 1.4; font-weight: 500; color: #b1c4e0; background: #17283f; }
+.jobs-page .jobs-state--running { color: #bad5ff; background: #1a3051; }
+.jobs-page .jobs-state--completed { color: #9adebc; background: #13362a; }
+.jobs-page .jobs-state--attention { color: #f1d091; background: #362c19; }
+.jobs-page .jobs-row-meta { display: flex; align-items: baseline; flex-wrap: wrap; gap: .375rem 1rem; margin-top: .5rem; color: var(--jobs-muted); font-size: .6875rem; }
+.jobs-page .jobs-row-meta time { font-variant-numeric: tabular-nums; }
+.jobs-page .jobs-billing { padding: .125rem .375rem; border: 1px solid #39495f; border-radius: .25rem; color: #c0cce0; white-space: nowrap; }
+.jobs-page .jobs-billing--known { color: #a4d0be; border-color: #305548; }
+.jobs-page .jobs-error-preview { color: #f0b3be; font-size: .75rem; margin-top: .5rem; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.jobs-page .jobs-state-note { color: #bcc9dc; font-size: .6875rem; margin-top: .375rem; }
+.jobs-page .jobs-activity-row--attention .jobs-state-note { color: #dbc18f; }
+.jobs-page .jobs-row-details { margin-top: .375rem; }
+.jobs-page .jobs-row-details > summary, .jobs-page .jobs-data-note > summary { width: fit-content; min-height: 2rem; padding: .375rem 0; cursor: pointer; font-size: .75rem; color: var(--jobs-accent); }
+.jobs-page summary:focus-visible { outline: 2px solid var(--jobs-accent); outline-offset: 3px; border-radius: .25rem; }
+.jobs-page .jobs-details-body { padding: .75rem; background: #091221; border: 1px solid var(--jobs-line); border-radius: .5rem; color: #b8c7dc; font-size: .75rem; }
+.jobs-page .jobs-details-body dl { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .75rem 1.25rem; margin: .875rem 0 0; }
+.jobs-page .jobs-details-body dt { color: var(--jobs-muted); font-size: .6875rem; }
+.jobs-page .jobs-details-body dd { margin: .125rem 0 0; color: #dce7f8; overflow-wrap: anywhere; }
+.jobs-page .jobs-full-error { margin-top: .75rem; padding-top: .75rem; border-top: 1px solid var(--jobs-line); color: #f0b3be; }
+.jobs-page .jobs-full-error p { margin-top: .25rem; white-space: pre-wrap; }
+.jobs-page .jobs-data-note { border-top: 1px solid var(--jobs-line); padding: .625rem 1.25rem; }
+.jobs-page .jobs-data-note p { padding: .25rem 0 .5rem; color: var(--jobs-muted); font-size: .75rem; line-height: 1.7; }
+.jobs-page .jobs-activity > .skeleton-stack { padding: 1rem 1.25rem; }
+.jobs-page .jobs-activity > .error-state { margin: 0 1.25rem 1rem; }
+.jobs-page .jobs-transcription-toggle { border: 1px solid var(--jobs-line); border-radius: .75rem; background: #0d1727; min-width: 0; }
+.jobs-page .jobs-transcription-toggle > summary { padding: .875rem 1.25rem; min-height: 2.75rem; cursor: pointer; color: #c4d9fa; font-size: .8125rem; font-weight: 500; }
+.jobs-page .jobs-transcription-hint { padding: 0 1.25rem 1rem; color: var(--jobs-muted); font-size: .75rem; }
+.jobs-page .jobs-transcription-toggle > .transcript-operations { margin: 0; border-width: 1px 0 0; border-radius: 0 0 .75rem .75rem; }
+
+@container jobs (max-width: 36rem) {
+  .jobs-page .jobs-heading .heading-actions { width: auto; }
+  .jobs-page .jobs-search { max-width: none; flex-basis: 100%; }
+  .jobs-page .jobs-details-body dl { grid-template-columns: minmax(0, 1fr); }
+  .jobs-page .jobs-row-meta { align-items: flex-start; }
+  .jobs-page .jobs-row-meta > span:first-child { flex-basis: 100%; }
+}
+@container jobs (max-width: 24rem) {
+  .jobs-page .jobs-activity-heading, .jobs-page .jobs-activity-row { padding-inline: .875rem; }
+  .jobs-page .jobs-controls, .jobs-page .jobs-result-count, .jobs-page .jobs-data-note { padding-inline: .875rem; }
+}
+@media (pointer: coarse) {
+  .jobs-page .jobs-filter-chip, .jobs-page .jobs-heading .button, .jobs-page summary { min-height: 2.75rem; }
+  body .jobs-page .jobs-search input[type=search] { min-height: 2.75rem; }
+}
