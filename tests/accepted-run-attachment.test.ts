@@ -34,8 +34,11 @@ async function bounded<T>(task: Promise<T>): Promise<T> {
   let settled = false;
   const observed = task.then(value => { settled = true; return { value }; }, error => { settled = true; return { error }; });
   // SHA256 uses the native crypto pool, not the fake clock. Keep draining newly
-  // scheduled bounded retries until the task settles instead of racing one pass.
-  for (let pass = 0; pass < 200 && !settled; pass++) {
+  // scheduled bounded retries until the task settles. A fixed number of event
+  // loop turns can elapse before native crypto completes on a busy CI runner,
+  // leaving its next fake-clock retry stranded. Vitest's real test deadline
+  // still bounds a task that genuinely fails to settle.
+  while (!settled) {
     await vi.runAllTimersAsync();
     await new Promise<void>(resolve => setImmediate(resolve));
   }
@@ -148,6 +151,15 @@ function expectExactRead() {
 }
 
 describe('bounded durable accepted-run attachment', () => {
+  it('drains retries scheduled after more than 200 native event-loop turns', async () => {
+    const task = (async () => {
+      for (let turn = 0; turn < 250; turn++) await new Promise<void>(resolve => setImmediate(resolve));
+      await new Promise<void>(resolve => setTimeout(resolve, 100));
+      return 'settled';
+    })();
+    expect(await bounded(task)).toBe('settled');
+    expect(fetcher).not.toHaveBeenCalled();
+  });
   it.each(['normal', 'pilot', 'media'])('makes only one start POST with three identical attachment attempts: %s', async path => {
     configurePath(path); attachFailures = 2;
     const result = await bounded(invoke(path));
